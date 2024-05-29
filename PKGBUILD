@@ -1,31 +1,31 @@
 # Maintainer: Dušan Simić <dusan.simic1810@gmail.com>
 
 pkgname='neo-matrix'
+_name='neo'
 pkgver='0.6.1'
-_commit='662445b45153d245df02cf1516dce81175a9183d'
-pkgrel=2
+pkgrel=3
 pkgdesc='Simulates the digital rain from "The Matrix"'
 arch=('x86_64')
 url='https://github.com/st3w/neo'
 license=('GPL3')
 depends=('ncurses')
-makedepends=('git')
+makedepends=()
 optdepends=('ttf-hanazono')
-source=("$pkgname::git+$url.git#commit=$_commit")
-md5sums=('SKIP')
+source=("$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('744a88cc6b98a4625ae5c5ee819640561f3df87518be0f9fca00ad787814b200')
 
 prepare() {
-    cd "$pkgname"
+    cd "$_name-$pkgver"
     ./autogen.sh
 }
 
 build() {
-    cd "$pkgname"
+    cd "$_name-$pkgver"
     ./configure --program-suffix='-matrix' --prefix="$pkgdir/usr"
     make
 }
 
 package() {
-    cd "$pkgname"
+    cd "$_name-$pkgver"
     make install
 }
